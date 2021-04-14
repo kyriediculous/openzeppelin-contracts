@@ -40,7 +40,7 @@ abstract contract Ownable is Context {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        require(owner() == _msgSender(), "Ownable: caller is not the owner");
+        _onlyOwner();
         _;
     }
 
@@ -64,5 +64,12 @@ abstract contract Ownable is Context {
         require(newOwner != address(0), "Ownable: new owner is the zero address");
         emit OwnershipTransferred(_owner, newOwner);
         _owner = newOwner;
+    }
+
+    /**
+     * @dev Throws if called by any account other than the owner.
+     */
+    function _onlyOwner() internal view {
+        require(owner() == _msgSender(), "Ownable: caller is not the owner");
     }
 }
